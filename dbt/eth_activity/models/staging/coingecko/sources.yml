@@ -1,0 +1,9 @@
+
+sources:
+  - name: bronze
+    schema: bronze
+    tables:
+      - name: coingecko_eth_price_raw
+        description: "Raw CoinGecko ETH price payloads loaded by Python ingestion."
+      - name: etherscan_transactions_raw
+        description: "Raw Etherscan transaction payloads loaded by Python ingestion."

@@ -1,0 +1,24 @@
+
+models:
+  - name: eth_market_price
+    description: "Intermediate model that aggregates ETH price data for market analysis."
+    columns:
+      - name: date
+        description: "Date of the price snapshot."
+        tests:
+          - not_null
+          - unique
+
+      - name: eth_usd_price
+        description: "ETH price in USD extracted from the CoinGecko payload."
+        tests:
+          - not_null
+
+      - name: fetched_at
+        description: "UTC timestamp when the data was fetched from CoinGecko."
+
+      - name: source
+        description: "Source system name from the raw payload."
+
+      - name: ingested_at
+        description: "Timestamp when the raw payload was inserted into Bronze."
