@@ -2,3 +2,7 @@
 __pycache__/
 .venv/
 *.log
+target/
+dbt_packages/
+logs/
+.sqlfluff

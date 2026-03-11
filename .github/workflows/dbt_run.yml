@@ -1,0 +1,56 @@
+name: Run dbt models
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "dbt/**"
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: |
+          pip install --upgrade pip
+          pip install dbt-postgres
+
+      - name: Create dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<EOF
+          eth_activity:
+            target: dev
+            outputs:
+              dev:
+                type: postgres
+                host: "${DBT_HOST}"
+                user: "${DBT_USER}"
+                password: "${DBT_PASSWORD}"
+                port: 5432
+                dbname: "${DBT_DBNAME}"
+                schema: silver
+                threads: 4
+                sslmode: require
+          EOF
+        env:
+          DBT_HOST: ${{ secrets.DBT_HOST }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+
+      - name: Run dbt
+        working-directory: dbt/eth_activity
+        run: |
+          dbt debug
+          dbt run
+          dbt test
