@@ -1,0 +1,24 @@
+{
+  "files.associations": {
+    "*.sql": "postgres"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[postgres]": {
+    "editor.defaultFormatter": "ms-postgresql.citus",
+    "editor.formatOnSave": false
+  },
+  "[jinja-sql]": {
+    "editor.defaultFormatter": null
+  },
+  "sql.linting.enabled": false,
+  "mssql.linting.enabled": false,
+  "mssql.format.keywordCase": "lower",
+  "[jinja]": {
+    "editor.defaultFormatter": null
+  },
+  "dbt.queryCompileMode": "headless",
+  "dbt.pythonActivation": true
+}
